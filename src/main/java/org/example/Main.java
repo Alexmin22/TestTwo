@@ -44,20 +44,20 @@ public class Main {
 //        us.saveUser(user5);
 //        us.saveUser(user6);
         us.saveUser(user7);
-//        us.saveUser(user8);
-//        us.saveUser(user9);
+        us.saveUser(user8);
+        us.saveUser(user9);
 //        us.saveUser(user10);
 
-           List<User> l = us.getAllUsers();
+        List<User> l = us.getAllUsers();
 
         us.removeUserID(4);
-        us.removeUserID(5);
+        us.removeUserID(8);
 
-        User user = us.getUserByID(9);
-        System.out.println(user);
+        User user = us.getUserByID(5);
+//        System.out.println(user);
 
 
-        us.cleanUserTable();
-           us.dropTable();
+//        us.cleanUserTable();
+//           us.dropTable();
     }
 }

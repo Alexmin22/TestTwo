@@ -125,9 +125,10 @@ public class UserDAOImpl implements UserDAO {
         try(sessionFactory) {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
-            user = (User)session.createQuery("from User where id = :id").setParameter("id", id).getSingleResult();
+            user = (User)session.createQuery("from User where id = :id").setParameter("id", id).uniqueResult();
+            System.out.println("user = " + user);
+            session.get(User.class, id);
             transaction.commit();
-            return session.get(User.class, id);
         } catch (PersistenceException e) {
             if (transaction!= null) {
                 transaction.rollback();
