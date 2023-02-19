@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserDAO {
     void saveUser(User user);
 
-    void removeUserID(User user);
+    void removeUserID(long id);
 
     void createTable();
 
@@ -17,5 +17,5 @@ public interface UserDAO {
 
     List<User> getAllUsers();
 
-    User getUserByID(int id);
+    User getUserByID(long id);
 }

@@ -4,6 +4,7 @@ import dao.UserDAOImpl;
 import model.User;
 import service.UserServiceImpl;
 
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -34,24 +35,30 @@ public class Main {
 
         UserServiceImpl us = new UserServiceImpl(new UserDAOImpl());
 
-        us.createTable();
-
-        us.saveUser(user1);
+//        us.createTable();
+//
+//        us.saveUser(user1);
 //        us.saveUser(user2);
 //        us.saveUser(user3);
-        us.saveUser(user4);
-        us.saveUser(user5);
+//        us.saveUser(user4);
+//        us.saveUser(user5);
 //        us.saveUser(user6);
 //        us.saveUser(user7);
 //        us.saveUser(user8);
 //        us.saveUser(user9);
 //        us.saveUser(user10);
-//
-        //    us.getAllUsers();
-//
-        us.removeUserID(user4);
-//
-//        us.cleanUserTable();
- //          us.dropTable();
+
+//           List<User> l = us.getAllUsers();
+//           l.forEach(System.out::println);
+
+        us.removeUserID(4);
+        us.removeUserID(5);
+
+        User user = us.getUserByID(9);
+        System.out.println(user);
+
+
+        us.cleanUserTable();
+           us.dropTable();
     }
 }

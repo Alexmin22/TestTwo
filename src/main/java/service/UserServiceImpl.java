@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService{
         userDao.saveUser(user);
     }
 
-    public void removeUserID(User user) {
-        userDao.removeUserID(user);
+    public void removeUserID(long id) {
+        userDao.removeUserID(id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
         return userDao.getAllUsers();
     }
     @Override
-    public User getUserByID(int id) {
+    public User getUserByID(long id) {
         return userDao.getUserByID(id);
     }
 }

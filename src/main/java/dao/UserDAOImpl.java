@@ -30,14 +30,17 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    public void removeUserID(User user) {
+    public void removeUserID(long id) {
         SessionFactory sessionFactory = Util.createUtilConnection();
         try(sessionFactory) {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
-            session.delete(user);
+            User user = session.get(User.class, id);
+            if (user!= null) {
+                session.delete(user);
+                System.out.println("Пользователь удален");
+            }
             transaction.commit();
-            System.out.println("Пользователь удален");
         } catch (PersistenceException e) {
             if (transaction!= null) {
                 transaction.rollback();
@@ -98,12 +101,15 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getAllUsers() {
         SessionFactory sessionFactory = Util.createUtilConnection();
         List<User> list = null;
+
         try(sessionFactory) {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
-            list = session.createSQLQuery("SELECT * FROM Users").stream().toList();
+
+            list = session.createSQLQuery("SELECT * FROM Users").getResultList();
+            list.forEach(System.out::println);
+
             transaction.commit();
-            System.out.println("Пользователи получены");
         } catch (PersistenceException e) {
             if (transaction!= null) {
                 transaction.rollback();
@@ -113,21 +119,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByID(int id) {
+    public User getUserByID(long id) {
         SessionFactory sessionFactory = Util.createUtilConnection();
+        User user = new User();
         try(sessionFactory) {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
-            session.createSQLQuery("SELECT * FROM Users WHERE id = " + id).executeUpdate();
+            user = session.createSQLQuery("SELECT * FROM Users WHERE id = " + id)
+                    .executeUpdate() != 0 ? session.get(User.class, id) : new User();
             transaction.commit();
-            System.out.println("Пользователь получен");
             return session.get(User.class, id);
         } catch (PersistenceException e) {
             if (transaction!= null) {
                 transaction.rollback();
             }
         }
-        return new User();
+        return user;
     }
 
 }

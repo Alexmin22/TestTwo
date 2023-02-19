@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Util {
     private static final String USER = "root";
@@ -17,5 +18,14 @@ public class Util {
     public static SessionFactory createUtilConnection() {
         Configuration configuration = new Configuration().addAnnotatedClass(User.class);
         return configuration.buildSessionFactory();
+    }
+
+    public static Connection getConnection() throws SQLException {
+        try {
+            return DriverManager.getConnection(URL,USER,PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("Соеденение не установлено...");
+            throw e;
+        }
     }
 }
