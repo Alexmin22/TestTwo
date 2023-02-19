@@ -106,7 +106,7 @@ public class UserDAOImpl implements UserDAO {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
 
-            list = session.createSQLQuery("SELECT * FROM Users").getResultList();
+            list = session.createQuery("from User").list();
             list.forEach(System.out::println);
 
             transaction.commit();
@@ -125,8 +125,7 @@ public class UserDAOImpl implements UserDAO {
         try(sessionFactory) {
             Session session = sessionFactory.getCurrentSession();
             transaction = session.beginTransaction();
-            user = session.createSQLQuery("SELECT * FROM Users WHERE id = " + id)
-                    .executeUpdate() != 0 ? session.get(User.class, id) : new User();
+            user = (User)session.createQuery("from User where id = :id").setParameter("id", id).getSingleResult();
             transaction.commit();
             return session.get(User.class, id);
         } catch (PersistenceException e) {

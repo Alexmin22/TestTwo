@@ -35,7 +35,7 @@ public class Main {
 
         UserServiceImpl us = new UserServiceImpl(new UserDAOImpl());
 
-//        us.createTable();
+        us.createTable();
 //
 //        us.saveUser(user1);
 //        us.saveUser(user2);
@@ -43,13 +43,12 @@ public class Main {
 //        us.saveUser(user4);
 //        us.saveUser(user5);
 //        us.saveUser(user6);
-//        us.saveUser(user7);
+        us.saveUser(user7);
 //        us.saveUser(user8);
 //        us.saveUser(user9);
 //        us.saveUser(user10);
 
-//           List<User> l = us.getAllUsers();
-//           l.forEach(System.out::println);
+           List<User> l = us.getAllUsers();
 
         us.removeUserID(4);
         us.removeUserID(5);
